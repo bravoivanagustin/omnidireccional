@@ -1,0 +1,27 @@
+bash start-docker.sh build % Crea imagen
+bash start-docker.sh start % Crea contenedor
+bash start-docker.sh open % Abre contenedor
+
+Modificar archivos:
+
+En /root/ros2_ws/src/sim_ros2_interface/meta/interfaces.txt agregar: 
+robmovil_msgs/msg/MultiEncoderTicks
+rosgraph_msgs/msg/Clock
+sensor_msgs/msg/Imu
+nav_msgs/msg/MapMetaData
+nav_msgs/msg/OccupancyGrid
+geometry_msgs/msg/PoseStamped
+
+En /root/ros2_ws/src/sim_ros2_interface/package.xml agregar: 
+<depend>robmovil_msgs</depend>
+
+En /root/ros2_ws/src/sim_ros2_interface/CMakeLists.txt agregar: 
+find_package(robmovil_msgs REQUIRED)
+
+Y dentro del ament_target_dependencies:
+robmovil_msgs
+
+Desde "root/ros2_ws":
+
+colcon build --symlink-install
+source install/setup.bash
